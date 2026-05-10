@@ -1,31 +1,25 @@
-/* ============================================================
+
    hw2.js  —  Houston Clinic Patient Registration
    Author: Lois Abrokwaa
-   External JavaScript file for all form validation & review
-   ============================================================ */
 
-/* ---- Set today's date in header ---- */
+
 window.addEventListener('DOMContentLoaded', function () {
-    var today = new Date();
+    var today = new Date(04/08/26);
     var options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     document.getElementById('today').textContent = today.toLocaleDateString('en-US', options);
 
-    // Set DOB min/max dynamically
-    var maxDate = today.toISOString().split('T')[0];                     // today (no future)
+    var maxDate = today.toISOString().split('T')[0];          
     var minYear  = new Date();
     minYear.setFullYear(today.getFullYear() - 120);
-    var minDate  = minYear.toISOString().split('T')[0];                  // 120 years ago
+    var minDate  = minYear.toISOString().split('T')[0];          
     var dobField = document.getElementById('dob');
     dobField.setAttribute('max', maxDate);
     dobField.setAttribute('min', minDate);
 
-    // Slider initial display
     updateSlider(document.getElementById('painlevel').value);
 });
 
-/* ============================================================
-   HELPER: show / clear error messages
-   ============================================================ */
+
 function showError(id, msg) {
     var el = document.getElementById(id);
     if (el) {
@@ -57,10 +51,6 @@ function markOk(fieldId, errorId) {
     clearError(errorId);
 }
 
-/* ============================================================
-   BLOCK 1 — Personal Info Validations
-   ============================================================ */
-
 function validateFname() {
     var val = document.getElementById('fname').value.trim();
     if (val === '') {
@@ -77,7 +67,7 @@ function validateFname() {
 
 function validateMini() {
     var val = document.getElementById('mini').value.trim();
-    if (val === '') { markOk('mini', 'mini-error'); return true; }   // optional
+    if (val === '') { markOk('mini', 'mini-error'); return true; }  
     if (!/^[a-zA-Z]$/.test(val)) {
         markError('mini', 'mini-error', 'One letter only.');
         return false;
@@ -118,10 +108,6 @@ function validateDob() {
     return true;
 }
 
-/* ============================================================
-   BLOCK 2 — Contact Info
-   ============================================================ */
-
 function validateEmail() {
     var val = document.getElementById('email').value.trim();
     var re  = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,20}$/;
@@ -140,9 +126,6 @@ function validatePhone() {
     return true;
 }
 
-/* ============================================================
-   BLOCK 3 — Address
-   ============================================================ */
 
 function validateAddress1() {
     var val = document.getElementById('address1').value.trim();
@@ -195,9 +178,6 @@ function validateZip() {
     return true;
 }
 
-/* ============================================================
-   BLOCK 5 — Account / Password Validations
-   ============================================================ */
 
 function validateUID() {
     var val   = document.getElementById('uid').value.trim();
@@ -282,9 +262,6 @@ function confirmPword() {
     return true;
 }
 
-/* ============================================================
-   SLIDER — Dynamic value display
-   ============================================================ */
 function updateSlider(val) {
     var labels = {
         1: '1 – Excellent',
@@ -302,11 +279,7 @@ function updateSlider(val) {
     if (display) display.textContent = labels[val] || val;
 }
 
-/* ============================================================
-   REVIEW — Build the review panel
-   ============================================================ */
 function reviewInput() {
-    // Run all validations silently first
     var valid = runAllValidations();
 
     var panel = document.getElementById('reviewPanel');
@@ -332,7 +305,6 @@ function reviewInput() {
         tbl.appendChild(tr);
     }
 
-    // Gather values
     var fname    = document.getElementById('fname').value.trim();
     var mini     = document.getElementById('mini').value.trim();
     var lname    = document.getElementById('lname').value.trim();
@@ -352,16 +324,13 @@ function reviewInput() {
     var pain     = document.getElementById('painlevel').value;
     var vax      = document.querySelector('input[name="vaccinated"]:checked');
 
-    // Checkboxes
     var checks   = document.querySelectorAll('input[name="history"]:checked');
     var checkVals = Array.from(checks).map(function(c){ return c.value; });
 
-    // Name
     var nameStr = fname + (mini ? ' ' + mini + '.' : '') + ' ' + lname;
     var nameOk  = fname && lname && /^[a-zA-Z'\-]{1,30}$/.test(fname) && /^[a-zA-Z'\-2-5]{1,30}$/.test(lname);
     row('Full Name', nameStr, nameOk, 'Check first/last name fields');
 
-    // DOB
     var dobOk = false, dobErr = 'Required';
     if (dob) {
         var dobD  = new Date(dob);
@@ -373,18 +342,14 @@ function reviewInput() {
     }
     row('Date of Birth', dob, dobOk, dobErr);
 
-    // Gender
     row('Gender', gender ? gender.value : '(not selected)', true, '');
 
-    // Email
     var emailRe = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,20}$/;
     row('Email Address', email, email && emailRe.test(email), 'Invalid email format');
 
-    // Phone
     var phoneRe = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/;
     row('Phone Number', phone, phone && phoneRe.test(phone), 'Format: 000-000-0000');
 
-    // Address
     var addrFull = addr1 + (addr2 ? ', ' + addr2 : '') + ', ' + city + ', ' + state + ' ' + zip;
     var zipRe    = /^\d{5}(-\d{4})?$/;
     var addrOk   = addr1.length >= 2 && city.length >= 2 && state && zipRe.test(zip);
@@ -393,26 +358,19 @@ function reviewInput() {
     else if (!city || city.length < 2) addrErr = 'Missing City';
     else if (!state)                  addrErr = 'Missing State';
     else if (!zipRe.test(zip))        addrErr = 'Missing or invalid Zip Code';
-    row('Address', addrFull, addrOk, addrErr);
 
-    // Checkboxes
     row('Medical History', checkVals.length ? checkVals.join(', ') : 'None checked', true, '');
 
-    // Vaccinated
     row('Vaccinated?', vax ? vax.value : '(not answered)', true, '');
 
-    // Pain level
     var painLabels = ['','Excellent','Very Good','Good','Fair','Moderate','Poor','Bad','Serious','Critical','Severe'];
     row('Health / Pain Level', pain + ' – ' + (painLabels[pain] || ''), true, '');
 
-    // Notes
     row('Additional Notes', notes || '(none)', true, '');
 
-    // User ID
     var uidOk = /^[a-zA-Z][a-zA-Z0-9_\-]{4,29}$/.test(uid);
     row('User ID', uid, uidOk, '5–30 chars, start with letter, no spaces');
 
-    // Password
     var pOk = /[A-Z]/.test(pword) && /[a-z]/.test(pword) && /[0-9]/.test(pword) &&
               /[!@#%^&*()\-_+=\\\/><.,`~]/.test(pword) && pword.length >= 8 && !/"/.test(pword);
     var p2Ok = pword === pword2 && pword !== '';
@@ -420,9 +378,6 @@ function reviewInput() {
     row('Passwords Match', p2Ok ? 'Yes' : 'No', p2Ok, 'Passwords do not match');
 }
 
-/* ============================================================
-   FULL VALIDATION — runs all checks, returns true if all pass
-   ============================================================ */
 function runAllValidations() {
     var ok = true;
     if (!validateFname())    ok = false;
@@ -452,13 +407,10 @@ function submitForm(event) {
     return true;
 }
 
-/* ============================================================
-   CLEAR REVIEW PANEL on reset
-   ============================================================ */
 function clearReview() {
     var panel = document.getElementById('reviewPanel');
     if (panel) panel.style.display = 'none';
-    // Clear all error states
+
     document.querySelectorAll('.error').forEach(function(e){ e.textContent = ''; });
     document.querySelectorAll('.field-error, .field-ok').forEach(function(f){
         f.classList.remove('field-error', 'field-ok');
