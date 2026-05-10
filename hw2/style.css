@@ -19,7 +19,7 @@ header {
 header h2 {
     font-family: 'DM Serif Display', serif;
     font-size: 1.7rem;
-    color: var(--clr-white);
+    color: var(--clr-red);
     margin-bottom: 2px;
 }
 
