@@ -39,7 +39,7 @@ function markError(fieldId, errorId, msg) {
         field.classList.add('field-error');
         field.classList.remove('field-ok');
     }
-    showError(errorId, '⚠ ' + msg);
+    showError(errorId, 'error' + msg);
 }
 
 function markOk(fieldId, errorId) {
