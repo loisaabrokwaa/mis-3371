@@ -2,23 +2,16 @@
    hw3.js  —  Houston Clinic | Patient Registration
    Author : Lois Abrokwaa
    Version: 3.0
- 
-   All form validation, SSN auto-formatting, slider display,
-   review panel, and submit-gate logic.
    ============================================================ */
  
 'use strict';
  
-/* ============================================================
-   PAGE INIT — runs once DOM is ready
-   ============================================================ */
 document.addEventListener('DOMContentLoaded', function () {
     setTodayDate();
     setDOBLimits();
     updateSlider(document.getElementById('painlevel').value);
 });
  
-/* ---- Set today's date in the header ---- */
 function setTodayDate() {
     var el = document.getElementById('today');
     if (el) {
@@ -29,7 +22,6 @@ function setTodayDate() {
     }
 }
  
-/* ---- Set min/max on DOB input dynamically ---- */
 function setDOBLimits() {
     var dob = document.getElementById('dob');
     if (!dob) return;
@@ -46,48 +38,35 @@ function toISODate(d) {
            (d.getMonth()+1).toString().padStart(2,'0') + '-' +
            d.getDate().toString().padStart(2,'0');
 }
- 
-/* ============================================================
-   HELPER UTILITIES
-   ============================================================ */
- 
-/* Show error message next to a field */
+
 function showErr(errId, msg) {
     var el = document.getElementById(errId);
     if (el) el.textContent = '⚠ ' + msg;
 }
  
-/* Clear error message */
 function clrErr(errId) {
     var el = document.getElementById(errId);
     if (el) el.textContent = '';
 }
  
-/* Mark field red */
 function markBad(fieldId, errId, msg) {
     var f = document.getElementById(fieldId);
     if (f) { f.classList.add('f-error'); f.classList.remove('f-ok'); }
     showErr(errId, msg);
 }
- 
-/* Mark field green */
+
 function markGood(fieldId, errId) {
     var f = document.getElementById(fieldId);
     if (f) { f.classList.remove('f-error'); f.classList.add('f-ok'); }
     clrErr(errId);
 }
- 
-/* Reset field to neutral */
+
 function markNeutral(fieldId, errId) {
     var f = document.getElementById(fieldId);
     if (f) { f.classList.remove('f-error', 'f-ok'); }
     clrErr(errId);
 }
- 
-/* ============================================================
-   BLOCK 1  —  Personal Information
-   ============================================================ */
- 
+
 function validateFname() {
     var val = document.getElementById('fname').value.trim();
     if (val === '') {
@@ -141,8 +120,6 @@ function validateDob() {
     markGood('dob', 'dob-err');
     return true;
 }
- 
-/* ---- SSN / Patient ID: auto-format XXX-XX-XXXX as password field ---- */
 function formatSSN(field) {
     // Strip all non-digits
     var digits = field.value.replace(/\D/g, '').substring(0, 9);
@@ -173,10 +150,6 @@ function validateSSN() {
     return true;
 }
  
-/* ============================================================
-   BLOCK 2  —  Contact Information
-   ============================================================ */
- 
 function forceEmailLower() {
     var f = document.getElementById('email');
     if (f) f.value = f.value.toLowerCase();
@@ -200,10 +173,6 @@ function validatePhone() {
     markGood('phone', 'phone-err');
     return true;
 }
- 
-/* ============================================================
-   BLOCK 3  —  Address
-   ============================================================ */
  
 function validateAddr1() {
     var val = document.getElementById('addr1').value.trim();
@@ -247,10 +216,7 @@ function validateZip() {
     markGood('zip', 'zip-err');
     return true;
 }
- 
-/* ============================================================
-   BLOCK 5  —  Account Setup
-   ============================================================ */
+
  
 function forceUIDLower() {
     var f = document.getElementById('uid');
@@ -279,8 +245,7 @@ function validateUID() {
     markGood('uid', 'uid-err');
     return true;
 }
- 
-/* ---- Live password hint display ---- */
+
 function setHint(id, pass, text) {
     var el = document.getElementById(id);
     if (!el) return;
@@ -332,10 +297,6 @@ function confirmPword() {
     markGood('pword2', 'pword2-err');
     return true;
 }
- 
-/* ============================================================
-   SLIDER
-   ============================================================ */
 function updateSlider(val) {
     var labels = {
         '1':  '1 – No Pain',
@@ -352,10 +313,6 @@ function updateSlider(val) {
     var badge = document.getElementById('slider-display');
     if (badge) badge.textContent = labels[String(val)] || val;
 }
- 
-/* ============================================================
-   REVIEW PANEL  —  show all fields with pass/error status
-   ============================================================ */
 function reviewInput() {
     var panel = document.getElementById('reviewPanel');
     panel.style.display = 'block';
@@ -363,8 +320,7 @@ function reviewInput() {
  
     var tbl = document.getElementById('reviewTable');
     tbl.innerHTML = '';
- 
-    // helper to add a row
+
     function addRow(label, value, pass, note) {
         var tr  = document.createElement('tr');
         var td1 = document.createElement('td');
@@ -379,7 +335,6 @@ function reviewInput() {
         tbl.appendChild(tr);
     }
  
-    // Gather
     var fname  = document.getElementById('fname').value.trim();
     var mini   = document.getElementById('mini').value.trim();
     var lname  = document.getElementById('lname').value.trim();
@@ -401,13 +356,12 @@ function reviewInput() {
     var gender = document.querySelector('input[name="pgender"]:checked');
     var checks = Array.from(document.querySelectorAll('input[name="history"]:checked')).map(function(c){return c.value;});
  
-    // Name
+   
     var nameOk = /^[a-zA-Z'\-]{1,30}$/.test(fname) && /^[a-zA-Z'\-]{1,30}$/.test(lname);
     addRow('Full Name',
         fname + (mini ? ' '+mini+'.' : '') + ' ' + lname,
         nameOk, 'Check first / last name');
  
-    // DOB
     var dobOk = false, dobNote = 'Required';
     if (dob) {
         var dobD = new Date(dob+'T00:00:00');
@@ -419,22 +373,17 @@ function reviewInput() {
     }
     addRow('Date of Birth', dob, dobOk, dobNote);
  
-    // SSN — display masked
     var ssnOk = ssnRaw.length === 9;
     addRow('Patient ID', ssnOk ? '***-**-' + ssnRaw.slice(-4) : '(invalid)', ssnOk, '9 digits required');
  
-    // Gender
     addRow('Gender', gender ? gender.value : '(not selected)', true, '');
  
-    // Email
     var emailOk = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,20}$/.test(email);
     addRow('Email', email, emailOk, 'Format: name@domain.tld');
- 
-    // Phone
+
     var phoneOk = /^[0-9]{3}-[0-9]{3}-[0-9]{4}$/.test(phone);
     addRow('Phone', phone, phoneOk, 'Format: 000-000-0000');
- 
-    // Address
+
     var addrOk = addr1.length >= 2 && city.length >= 2 && !!state && /^\d{5}$/.test(zip);
     var addrStr = addr1 + (addr2 ? ', '+addr2 : '') + ', ' + city + ', ' + state + ' ' + zip;
     var addrNote = !addr1 || addr1.length<2 ? 'Missing Addr Line 1'
@@ -444,39 +393,28 @@ function reviewInput() {
                  : '';
     addRow('Address', addrStr, addrOk, addrNote);
  
-    // Checkboxes
     addRow('Medical History', checks.length ? checks.join(', ') : 'None', true, '');
  
-    // Vaccinated
     addRow('Vaccinated?', vax ? vax.value : '(not answered)', true, '');
- 
-    // Pain
+
     var painLabels = ['','No Pain','Minimal','Mild','Moderate-Mild','Moderate','Moderate-Severe','Severe','Very Severe','Critical','Unbearable'];
     addRow('Pain Level', pain + ' – ' + (painLabels[parseInt(pain)] || ''), true, '');
- 
-    // Notes
+
     addRow('Notes', notes || '(none)', true, '');
  
-    // User ID
     var uidOk = uid.length >= 5 && uid.length <= 20 && !(/^\d/.test(uid)) && !/[^a-zA-Z0-9_\-]/.test(uid);
     addRow('User ID', uid, uidOk, '5–20 chars, start with letter, no spaces/specials');
  
-    // Password
     var pOk = pword.length >= 8 && pword.length <= 30 && /[A-Z]/.test(pword) && /[a-z]/.test(pword) && /[0-9]/.test(pword) && pword.toLowerCase() !== uid.toLowerCase();
     addRow('Password', pOk ? '(meets requirements)' : '(see hints)', pOk, 'Does not meet requirements');
- 
-    // Passwords match
+
     var p2Ok = pword === pword2 && pword !== '';
     addRow('Passwords Match', p2Ok ? 'Yes' : 'No', p2Ok, 'Passwords do not match');
- 
-    // Note at bottom
+
     document.getElementById('review-note').textContent =
         'Fields marked ERR must be corrected before you can submit.';
 }
- 
-/* ============================================================
-   VALIDATE ALL  —  runs every validator, shows/hides Submit
-   ============================================================ */
+
 function validateAll() {
     var results = [
         validateFname(),
@@ -516,12 +454,8 @@ function validateAll() {
         if (firstBad) firstBad.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 }
- 
-/* ============================================================
-   CLEAR / RESET
-   ============================================================ */
+
 function clearAll() {
-    // Clear all error states and hints
     document.querySelectorAll('.errmsg').forEach(function(e){ e.textContent = ''; });
     document.querySelectorAll('.f-error, .f-ok').forEach(function(f){
         f.classList.remove('f-error', 'f-ok');
