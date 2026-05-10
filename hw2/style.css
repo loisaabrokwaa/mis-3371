@@ -2,24 +2,6 @@
    hw2.css  —  Houston Clinic Patient Registration
    Author: Lois Abrokwaa
 
-:root {
-    --clr-navy:    #1a2e4a;
-    --clr-teal:    #0d7377;
-    --clr-teal-lt: #14a085;
-    --clr-sky:     #e8f4f8;
-    --clr-white:   #ffffff;
-    --clr-gray:    #f4f6f9;
-    --clr-border:  #cdd8e3;
-    --clr-red:     #c0392b;
-    --clr-green:   #1e8449;
-    --clr-text:    #1c2b3a;
-    --clr-muted:   #6b7f93;
-    --radius:      8px;
-    --shadow:      0 2px 12px rgba(0,0,0,0.09);
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 body {
     font-family: 'DM Sans', sans-serif;
     background: var(--clr-gray);
