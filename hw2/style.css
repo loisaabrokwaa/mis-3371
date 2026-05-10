@@ -1,3 +1,11 @@
+/* ============================================================
+   hw2.css  —  Houston Clinic Patient Registration
+   Author: Lois Abrokwaa
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+/* ---- CSS Variables ---- */
 :root {
     --clr-navy:    #1a2e4a;
     --clr-teal:    #0d7377;
@@ -13,10 +21,10 @@
     --radius:      8px;
     --shadow:      0 2px 12px rgba(0,0,0,0.09);
 }
- 
+
 /* ---- Reset / Base ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
 body {
     font-family: 'DM Sans', sans-serif;
     background: var(--clr-gray);
@@ -24,45 +32,45 @@ body {
     font-size: 14px;
     line-height: 1.6;
 }
- 
+
 /* ---- Header ---- */
 header {
     background: var(--clr-navy);
     color: var(--clr-white);
     padding: 16px 24px;
 }
- 
+
 header h2 {
     font-family: 'DM Serif Display', serif;
     font-size: 1.7rem;
     color: var(--clr-white);
     margin-bottom: 2px;
 }
- 
+
 header .tagline {
     color: #8fb8d4;
     font-size: 0.82rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
 }
- 
+
 header p {
     color: #a8c4d8;
     font-size: 0.85rem;
 }
- 
+
 header #logo {
     border-radius: 50%;
     border: 3px solid var(--clr-teal);
     background: var(--clr-white);
     padding: 4px;
 }
- 
+
 hr {
     border: none;
     border-top: 3px solid var(--clr-teal);
 }
- 
+
 /* ---- Page Layout ---- */
 .page-wrapper {
     display: flex;
@@ -71,12 +79,12 @@ hr {
     padding: 24px;
     align-items: flex-start;
 }
- 
+
 .form-column {
     flex: 1 1 520px;
     min-width: 320px;
 }
- 
+
 .review-column {
     flex: 1 1 380px;
     min-width: 300px;
@@ -86,7 +94,7 @@ hr {
     padding: 20px 24px;
     box-shadow: var(--shadow);
 }
- 
+
 .review-column h3 {
     font-family: 'DM Serif Display', serif;
     color: var(--clr-navy);
@@ -95,7 +103,7 @@ hr {
     padding-bottom: 8px;
     border-bottom: 2px solid var(--clr-sky);
 }
- 
+
 /* ---- Form Tables ---- */
 .form-table {
     width: 100%;
@@ -106,7 +114,7 @@ hr {
     margin-bottom: 20px;
     overflow: hidden;
 }
- 
+
 .form-table th {
     background: var(--clr-navy);
     color: var(--clr-white);
@@ -116,33 +124,33 @@ hr {
     padding: 10px 16px;
     text-align: left;
 }
- 
+
 .form-table td {
     padding: 8px 14px;
     vertical-align: middle;
 }
- 
+
 .form-table tr:nth-child(even) td {
     background: var(--clr-sky);
 }
- 
+
 .form-table tr:hover td {
     background: #dff0f7;
     transition: background 0.15s;
 }
- 
+
 /* ---- Labels ---- */
 label {
     font-weight: 500;
     color: var(--clr-navy);
     font-size: 0.88rem;
 }
- 
+
 .req {
     color: var(--clr-red);
     font-weight: 700;
 }
- 
+
 /* ---- Inputs ---- */
 input[type="text"],
 input[type="email"],
@@ -161,7 +169,7 @@ textarea {
     transition: border-color 0.2s, box-shadow 0.2s;
     outline: none;
 }
- 
+
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
@@ -171,17 +179,17 @@ textarea:focus {
     border-color: var(--clr-teal);
     box-shadow: 0 0 0 3px rgba(13,115,119,0.15);
 }
- 
+
 input.field-error,
 select.field-error {
     border-color: var(--clr-red) !important;
     background: #fff5f5;
 }
- 
+
 input.field-ok {
     border-color: var(--clr-green) !important;
 }
- 
+
 /* ---- Radio & Checkbox ---- */
 .checkbox-group {
     display: flex;
@@ -189,7 +197,7 @@ input.field-ok {
     gap: 12px;
     padding: 8px 14px;
 }
- 
+
 .checkbox-group label {
     display: flex;
     align-items: center;
@@ -197,7 +205,7 @@ input.field-ok {
     cursor: pointer;
     font-weight: 400;
 }
- 
+
 input[type="radio"],
 input[type="checkbox"] {
     accent-color: var(--clr-teal);
@@ -205,7 +213,7 @@ input[type="checkbox"] {
     height: 15px;
     cursor: pointer;
 }
- 
+
 /* ---- Range Slider ---- */
 input[type="range"] {
     -webkit-appearance: none;
@@ -217,7 +225,7 @@ input[type="range"] {
     border: none;
     padding: 0;
 }
- 
+
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 18px;
@@ -228,7 +236,7 @@ input[type="range"]::-webkit-slider-thumb {
     border: 2px solid var(--clr-white);
     box-shadow: 0 1px 4px rgba(0,0,0,0.25);
 }
- 
+
 .slider-val {
     display: inline-block;
     background: var(--clr-teal);
@@ -241,7 +249,7 @@ input[type="range"]::-webkit-slider-thumb {
     min-width: 110px;
     text-align: center;
 }
- 
+
 /* ---- Error & Hint messages ---- */
 .error {
     color: var(--clr-red);
@@ -250,28 +258,28 @@ input[type="range"]::-webkit-slider-thumb {
     display: block;
     min-width: 140px;
 }
- 
+
 .pword-hints {
     margin-top: 4px;
     display: flex;
     flex-direction: column;
     gap: 2px;
 }
- 
+
 .pword-hints span {
     font-size: 0.75rem;
     display: block;
 }
- 
+
 .hint-ok   { color: var(--clr-green); }
 .hint-fail { color: var(--clr-red);   }
- 
+
 /* ---- Buttons ---- */
 .btn-row {
     text-align: center;
     padding: 14px 8px !important;
 }
- 
+
 input[type="button"],
 input[type="submit"],
 input[type="reset"] {
@@ -285,7 +293,7 @@ input[type="reset"] {
     margin: 4px 6px;
     transition: background 0.2s, transform 0.1s;
 }
- 
+
 input[type="button"] {      /* Review */
     background: var(--clr-teal);
     color: var(--clr-white);
@@ -294,7 +302,7 @@ input[type="button"]:hover {
     background: var(--clr-teal-lt);
     transform: translateY(-1px);
 }
- 
+
 input[type="submit"] {      /* Submit */
     background: var(--clr-navy);
     color: var(--clr-white);
@@ -303,7 +311,7 @@ input[type="submit"]:hover {
     background: #25426a;
     transform: translateY(-1px);
 }
- 
+
 input[type="reset"] {       /* Start Over */
     background: #e0e6ed;
     color: var(--clr-navy);
@@ -311,40 +319,40 @@ input[type="reset"] {       /* Start Over */
 input[type="reset"]:hover {
     background: #c8d4df;
 }
- 
+
 /* ---- Review Panel ---- */
 .review-table {
     width: 100%;
     border-collapse: collapse;
     font-size: 0.85rem;
 }
- 
+
 .review-table td {
     padding: 6px 8px;
     vertical-align: top;
     border-bottom: 1px solid var(--clr-sky);
 }
- 
+
 .review-table td:first-child {
     font-weight: 600;
     color: var(--clr-navy);
     width: 45%;
 }
- 
+
 .review-table td:last-child {
     font-style: italic;
     font-size: 0.78rem;
 }
- 
+
 .status-pass  { color: var(--clr-green); font-weight: 700; }
 .status-error { color: var(--clr-red);   font-weight: 700; }
- 
+
 .review-note {
     margin-top: 12px;
     font-size: 0.78rem;
     color: var(--clr-muted);
 }
- 
+
 /* ---- Responsive ---- */
 @media (max-width: 700px) {
     .page-wrapper { padding: 12px; gap: 12px; }
