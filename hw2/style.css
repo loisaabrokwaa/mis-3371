@@ -1,10 +1,9 @@
-
-   hw2.css  —  Houston Clinic Patient Registration
+hw2.css  —  Houston Clinic Patient Registration
    Author: Lois Abrokwaa
 
 body {
     font-family: 'DM Sans', sans-serif;
-    background: var(--clr-gray);
+    background: var(--clr-black);
     color: var(--clr-text);
     font-size: 14px;
     line-height: 1.6;
