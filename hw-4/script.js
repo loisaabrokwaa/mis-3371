@@ -2,14 +2,6 @@
    hw4.js  —  Houston Clinic | Patient Registration v4
    Author : Lois Abrokwaa
    Version: 4.0
-
-   New in v4:
-     - Fetch API: loads states.html and conditions.html
-     - Cookies: remembers first name for 48 hours
-     - localStorage: saves/restores all non-secure fields
-     - Fixed header/footer (CSS-driven, JS sets spacer height)
-     - "Remember Me" checkbox controls save/clear behavior
-     - "Not me?" checkbox expires cookie + clears storage
    ============================================================ */
 
 'use strict';
