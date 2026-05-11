@@ -1,1 +1,470 @@
+/* ============================================================
+   hw4.css  —  Houston Clinic | Patient Registration v4
+   Author : Lois Abrokwaa
+   Version: 4.0
+   New in v4: fixed header, fixed footer, iFrame card,
+              cookie welcome bar, localStorage status
+   ============================================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Karla:wght@300;400;500;600;700&display=swap');
+
+/* ---- CSS Custom Properties ---- */
+:root {
+    --navy:       #122333;
+    --navy-lt:    #1e3a52;
+    --teal:       #0b7b82;
+    --teal-lt:    #10a3ab;
+    --accent:     #e9a030;
+    --accent-dk:  #c8841a;
+    --sky:        #e8f4f7;
+    --white:      #ffffff;
+    --offwhite:   #f4f7fa;
+    --border:     #c6d5e2;
+    --text:       #192837;
+    --muted:      #5e7a8e;
+    --red:        #c0392b;
+    --green:      #1a7a40;
+    --radius:     8px;
+    --shadow:     0 3px 18px rgba(10,28,55,0.11);
+    --header-h:   72px;
+    --footer-h:   44px;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: 'Karla', sans-serif;
+    background: var(--offwhite);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+/* ============================================================
+   FIXED HEADER
+   ============================================================ */
+#site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: var(--navy);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.28);
+}
+
+.header-inner {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 8px 20px 4px;
+    min-height: calc(var(--header-h) - 4px);
+}
+
+.header-logo-wrap { flex: 0 0 auto; }
+
+#logo {
+    border-radius: 50%;
+    border: 3px solid var(--teal-lt);
+    background: var(--white);
+    padding: 3px;
+    display: block;
+}
+
+.header-title { flex: 1 1 auto; }
+
+.header-title h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 1.45rem;
+    color: var(--white);
+    line-height: 1.15;
+    letter-spacing: 0.01em;
+}
+
+.header-title .tagline {
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.header-right {
+    flex: 0 0 auto;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+}
+
+.welcome-msg {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #a8d4e0;
+    min-height: 1.1em;
+    letter-spacing: 0.02em;
+}
+
+.not-me-wrap {
+    font-size: 0.75rem;
+    color: var(--accent);
+}
+
+.not-me-wrap label { cursor: pointer; display: flex; align-items: center; gap: 5px; }
+.not-me-wrap input[type="checkbox"] {
+    accent-color: var(--accent);
+    width: 13px !important;
+    height: 13px !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+.date-display { color: #7aaabb; font-size: 0.76rem; }
+
+.header-bar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal) 0%, var(--accent) 55%, var(--teal-lt) 100%);
+}
+
+/* spacer so body content starts below fixed header */
+#header-spacer { height: var(--header-h); }
+
+/* ============================================================
+   FIXED FOOTER
+   ============================================================ */
+#site-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    height: var(--footer-h);
+    background: var(--navy-lt);
+    border-top: 3px solid var(--teal);
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.20);
+}
+
+.footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+    height: 100%;
+    color: #8aaabb;
+    font-size: 0.76rem;
+}
+
+.footer-mid { color: var(--accent); font-weight: 600; }
+
+.footer-status {
+    font-size: 0.72rem;
+    color: #5e9aaa;
+    font-style: italic;
+}
+
+/* ============================================================
+   PAGE LAYOUT
+   ============================================================ */
+.page-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 18px 22px;
+    align-items: flex-start;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+.form-col   { flex: 1 1 520px; min-width: 300px; }
+
+.review-col {
+    flex: 0 1 370px;
+    min-width: 280px;
+    background: var(--white);
+    border: 2px solid var(--teal);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: calc(var(--header-h) + 14px);
+    max-height: calc(100vh - var(--header-h) - var(--footer-h) - 30px);
+    overflow-y: auto;
+}
+
+.review-col h3 {
+    font-family: 'Libre Baskerville', serif;
+    color: var(--navy);
+    font-size: 0.98rem;
+    border-bottom: 2px solid var(--sky);
+    padding-bottom: 7px;
+    margin-bottom: 10px;
+}
+
+/* ============================================================
+   iFRAME CARD
+   ============================================================ */
+.iframe-card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 14px 16px;
+    margin-bottom: 18px;
+}
+
+.iframe-card h2 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.95rem;
+    color: var(--navy);
+    margin-bottom: 6px;
+}
+
+.iframe-desc {
+    color: var(--muted);
+    font-size: 0.80rem;
+    margin-bottom: 8px;
+}
+
+#clinicFrame {
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    display: block;
+    width: 100%;
+}
+
+/* ============================================================
+   BLOCK TABLES
+   ============================================================ */
+.block-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+.block-table thead tr th {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Libre Baskerville', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.03em;
+    padding: 9px 14px;
+    text-align: left;
+}
+
+.block-num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--navy);
+    font-family: 'Karla', sans-serif;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-right: 7px;
+    vertical-align: middle;
+}
+
+.block-table tbody tr:nth-child(even) td { background: var(--sky); }
+.block-table tbody tr:hover td { background: #d5ecf3; transition: background 0.14s; }
+
+.lbl-col  { width: 28%; padding: 7px 12px; vertical-align: middle; }
+.inp-col  { width: 46%; padding: 6px 10px; vertical-align: middle; }
+.err-col  { width: 26%; padding: 6px 6px;  vertical-align: middle; }
+.lbl-pad  { padding: 8px 14px 2px; }
+
+/* ============================================================
+   LABELS & INPUTS
+   ============================================================ */
+label { font-weight: 500; color: var(--navy); font-size: 0.87rem; }
+.req  { color: var(--red); font-weight: 700; }
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 6px 9px;
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.87rem;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(11,123,130,0.15);
+}
+
+input.f-error, select.f-error { border-color: var(--red)   !important; background: #fff5f5; }
+input.f-ok,    select.f-ok    { border-color: var(--green) !important; background: #f4fff8; }
+
+textarea { resize: vertical; }
+
+/* ============================================================
+   RADIOS & CHECKBOXES
+   ============================================================ */
+.checkbox-cell, .radio-cell {
+    padding: 8px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px 16px;
+}
+
+.chk-lbl, .radio-lbl {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.86rem;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: var(--teal);
+    width: 14px !important;
+    height: 14px !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    cursor: pointer;
+}
+
+/* ============================================================
+   SLIDER
+   ============================================================ */
+.slider-wrap { display: flex; align-items: center; gap: 10px; }
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 155px !important;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border);
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--teal);
+    cursor: pointer;
+    border: 2px solid var(--white);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+}
+
+.slider-badge {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 0.77rem;
+    font-weight: 600;
+    min-width: 112px;
+    text-align: center;
+    transition: background 0.2s;
+}
+
+/* ============================================================
+   ERROR / HINT MESSAGES
+   ============================================================ */
+.errmsg {
+    color: var(--red);
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: block;
+    min-height: 1.1em;
+    min-width: 130px;
+    line-height: 1.3;
+}
+
+.hint-box { margin-top: 4px; display: flex; flex-direction: column; gap: 1px; }
+.hint-box span { font-size: 0.73rem; display: block; min-height: 1.1em; }
+.h-ok   { color: var(--green); }
+.h-fail { color: var(--red);   }
+.h-idle { color: var(--muted); }
+
+.loading-msg { color: var(--muted); font-style: italic; font-size: 0.82rem; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-row {
+    text-align: center;
+    padding: 12px 10px !important;
+    background: var(--offwhite) !important;
+}
+
+button {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Karla', sans-serif;
+    font-size: 0.87rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin: 3px 4px;
+    letter-spacing: 0.02em;
+    transition: background 0.18s, transform 0.1s, box-shadow 0.18s;
+}
+
+#reviewBtn   { background: #ddeaf5; color: var(--navy); }
+#reviewBtn:hover { background: #c4d9ea; }
+
+#validateBtn { background: var(--teal); color: var(--white); }
+#validateBtn:hover { background: var(--teal-lt); box-shadow: 0 3px 10px rgba(11,123,130,0.3); }
+
+#submitBtn   { background: var(--accent); color: var(--navy); }
+#submitBtn:hover { background: var(--accent-dk); color: var(--white); }
+
+#resetBtn    { background: #e5eaef; color: var(--muted); }
+#resetBtn:hover { background: #d0d8e0; color: var(--navy); }
+
+/* ============================================================
+   REVIEW PANEL
+   ============================================================ */
+.review-tbl { width: 100%; border-collapse: collapse; font-size: 0.80rem; }
+.review-tbl td { padding: 5px 6px; vertical-align: top; border-bottom: 1px solid var(--sky); }
+.review-tbl td:first-child { font-weight: 600; color: var(--navy); width: 38%; }
+.review-tbl td:nth-child(2){ width: 36%; }
+
+.s-pass  { color: var(--green); font-weight: 700; font-size: 0.70rem; }
+.s-error { color: var(--red);   font-weight: 700; font-size: 0.70rem; }
+
+.review-note { margin-top: 9px; font-size: 0.74rem; color: var(--muted); line-height: 1.4; }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 680px) {
+    .header-inner  { flex-wrap: wrap; padding: 6px 12px; }
+    .page-wrapper  { padding: 10px 12px; gap: 12px; }
+    .lbl-col, .inp-col, .err-col { display: block; width: 100%; }
+    .review-col    { position: static; max-height: none; }
+    .checkbox-cell, .radio-cell { flex-direction: column; }
+}
