@@ -1,1 +1,442 @@
+<!DOCTYPE html>
+<!--
+    Program name: Lois Abrokwaa
+    Date created: 2/24/2026
+    Date last edited: 2/24/2026
+    Version: 4.0
+    Description: Homework 4 - Fetch API, iFrames, Fixed Header/Footer,
+                 Cookies, and Local Storage
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Patient Registration | Houston Clinic</title>
+    <link rel="stylesheet" href="hw4.css">
+</head>
+<body>
 
+<!-- =====================================================
+     FIXED HEADER (stays at top on scroll)
+     Cookie-based welcome message lives here
+     ===================================================== -->
+<header id="site-header">
+    <div class="header-inner">
+        <div class="header-logo-wrap">
+            <img src="cliniclogo.png" alt="Houston Clinic Logo" width="52" id="logo">
+        </div>
+        <div class="header-title">
+            <h1>Houston Clinic</h1>
+            <p class="tagline">New Patient Registration</p>
+        </div>
+        <div class="header-right">
+            <!-- Cookie welcome message injected here by JS -->
+            <div id="welcomeMsg" class="welcome-msg"></div>
+            <!-- "Not you?" checkbox — only shown for returning users -->
+            <div id="notMeWrap" style="display:none;" class="not-me-wrap">
+                <label>
+                    <input type="checkbox" id="notMeChk" onchange="handleNotMe(this)">
+                    <span id="notMeLabel">Not me? Start as new user</span>
+                </label>
+            </div>
+            <p class="date-display">Date: <span id="today"></span></p>
+        </div>
+    </div>
+    <div class="header-bar"></div>
+</header>
+
+<!-- spacer so content doesn't hide behind fixed header -->
+<div id="header-spacer"></div>
+
+<!-- =====================================================
+     MAIN CONTENT AREA
+     ===================================================== -->
+<div class="page-wrapper">
+
+    <!-- ===== FORM COLUMN ===== -->
+    <div class="form-col">
+
+        <!-- ── iFRAME SECTION ── -->
+        <div class="section-card iframe-card">
+            <h2 class="section-title"><span class="block-num">ℹ</span> Houston Clinic — About Us</h2>
+            <p class="iframe-desc">Learn more about our clinic while you fill out your registration below.</p>
+            <iframe
+                id="clinicFrame"
+                src="https://www.w3schools.com/html/html_iframe.asp"
+                title="About Houston Clinic — External Reference"
+                width="100%"
+                height="220"
+                loading="lazy"
+                sandbox="allow-same-origin allow-scripts allow-popups allow-forms">
+                <p>Your browser does not support iFrames.
+                   <a href="https://www.w3schools.com/html/html_iframe.asp">Click here</a> to view the content.</p>
+            </iframe>
+        </div>
+
+        <form id="regForm" action="thankyou.html" method="get" novalidate>
+
+            <!-- BLOCK 1: Personal Info -->
+            <table class="block-table">
+                <thead><tr><th colspan="3">
+                    <span class="block-num">01</span> Personal Information
+                </th></tr></thead>
+                <tbody>
+
+                <tr>
+                    <td class="lbl-col"><label for="fname">First Name <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="text" id="fname" name="fname"
+                            maxlength="30" autocomplete="given-name"
+                            title="Letters, apostrophes, and dashes only. 1–30 characters. Required."
+                            placeholder="Lois"
+                            oninput="validateFname(); saveField('fname')"
+                            onblur="validateFname(); saveField('fname')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="fname-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="mini">Middle Initial</label></td>
+                    <td class="inp-col">
+                        <input type="text" id="mini" name="mini"
+                            maxlength="1"
+                            title="Optional. One letter only, no numbers."
+                            placeholder="A"
+                            oninput="validateMini(); saveField('mini')"
+                            onblur="validateMini(); saveField('mini')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="mini-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="lname">Last Name <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="text" id="lname" name="lname"
+                            maxlength="30" autocomplete="family-name"
+                            title="Letters, apostrophes, and dashes only. 1–30 characters. Required."
+                            placeholder="Abrokwaa"
+                            oninput="validateLname(); saveField('lname')"
+                            onblur="validateLname(); saveField('lname')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="lname-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="dob">Date of Birth <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="date" id="dob" name="dob"
+                            title="Required. Cannot be a future date or more than 120 years ago."
+                            onchange="validateDob(); saveField('dob')"
+                            onblur="validateDob(); saveField('dob')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="dob-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="ssn">Patient ID # <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="password" id="ssn" name="ssn"
+                            maxlength="11"
+                            title="9-digit numeric ID. Auto-formatted XXX-XX-XXXX. Do not use your real SSN."
+                            placeholder="XXX-XX-XXXX"
+                            oninput="formatSSN(this)"
+                            onblur="validateSSN()">
+                        <!-- SSN is NOT saved to localStorage for security -->
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="ssn-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label>Gender</label></td>
+                    <td class="inp-col" colspan="2">
+                        <label class="radio-lbl"><input type="radio" name="pgender" value="Male"
+                            title="Select Male" onchange="saveField('pgender')"> Male</label>
+                        <label class="radio-lbl"><input type="radio" name="pgender" value="Female"
+                            title="Select Female" onchange="saveField('pgender')"> Female</label>
+                        <label class="radio-lbl"><input type="radio" name="pgender" value="Other"
+                            title="Select Other" onchange="saveField('pgender')"> Other</label>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <!-- BLOCK 2: Contact Info -->
+            <table class="block-table">
+                <thead><tr><th colspan="3">
+                    <span class="block-num">02</span> Contact Information
+                </th></tr></thead>
+                <tbody>
+
+                <tr>
+                    <td class="lbl-col"><label for="email">Email <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="text" id="email" name="email"
+                            maxlength="80" autocomplete="email"
+                            title="Required. Format: name@domain.tld. Converted to lowercase."
+                            placeholder="lois@gmail.com"
+                            oninput="validateEmail(); saveField('email')"
+                            onblur="forceEmailLower(); validateEmail(); saveField('email')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="email-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="phone">Phone <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="text" id="phone" name="phone"
+                            maxlength="12"
+                            title="Required. Format: 000-000-0000"
+                            placeholder="713-000-0000"
+                            oninput="validatePhone(); saveField('phone')"
+                            onblur="validatePhone(); saveField('phone')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="phone-err"></span></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <!-- BLOCK 3: Address -->
+            <table class="block-table">
+                <thead><tr><th colspan="3">
+                    <span class="block-num">03</span> Address
+                </th></tr></thead>
+                <tbody>
+
+                <tr>
+                    <td class="lbl-col"><label for="addr1">Address Line 1 <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="text" id="addr1" name="addr1"
+                            maxlength="60"
+                            title="Required. 2–60 characters."
+                            placeholder="4971 Martin Luther King Blvd"
+                            oninput="validateAddr1(); saveField('addr1')"
+                            onblur="validateAddr1(); saveField('addr1')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="addr1-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="addr2">Address Line 2</label></td>
+                    <td class="inp-col">
+                        <input type="text" id="addr2" name="addr2"
+                            maxlength="60"
+                            title="Optional. If entered, 2–60 characters."
+                            placeholder="Apt C"
+                            oninput="validateAddr2(); saveField('addr2')"
+                            onblur="validateAddr2(); saveField('addr2')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="addr2-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="city">City <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="text" id="city" name="city"
+                            maxlength="30"
+                            title="Required. 2–30 characters."
+                            placeholder="Houston"
+                            oninput="validateCity(); saveField('city')"
+                            onblur="validateCity(); saveField('city')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="city-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="state">State <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <!-- Populated by Fetch API from states.html -->
+                        <select id="state" name="state"
+                            title="Required. Select your state."
+                            onchange="validateState(); saveField('state')"
+                            onblur="validateState()">
+                            <option value="">Loading states…</option>
+                        </select>
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="state-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="zip">Zip Code <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="text" id="zip" name="zip"
+                            maxlength="5"
+                            title="Required. 5 digits only."
+                            placeholder="77002"
+                            oninput="validateZip(); saveField('zip')"
+                            onblur="validateZip(); saveField('zip')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="zip-err"></span></td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <!-- BLOCK 4: Medical History (checkboxes loaded via Fetch) -->
+            <table class="block-table">
+                <thead><tr><th colspan="3">
+                    <span class="block-num">04</span> Medical History &amp; Preferences
+                </th></tr></thead>
+                <tbody>
+
+                <tr>
+                    <td colspan="3" class="lbl-pad"><strong>Check all conditions you have had:</strong></td>
+                </tr>
+                <tr>
+                    <!-- Populated by Fetch API from conditions.html -->
+                    <td id="conditions-cell" colspan="3" class="checkbox-cell">
+                        <span class="loading-msg">Loading conditions…</span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="3" class="lbl-pad"><strong>Vaccination status:</strong></td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="radio-cell">
+                        <label class="radio-lbl"><input type="radio" name="vaccinated" value="Yes"
+                            title="I have been vaccinated"
+                            onchange="saveField('vaccinated')"> Yes — Vaccinated</label>
+                        <label class="radio-lbl"><input type="radio" name="vaccinated" value="No"
+                            title="I have not been vaccinated"
+                            onchange="saveField('vaccinated')"> No — Not Vaccinated</label>
+                        <label class="radio-lbl"><input type="radio" name="vaccinated" value="Unsure"
+                            title="I am unsure"
+                            onchange="saveField('vaccinated')"> Unsure</label>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="painlevel">Pain / Health Level</label></td>
+                    <td class="inp-col" colspan="2">
+                        <div class="slider-wrap">
+                            <input type="range" id="painlevel" name="painlevel"
+                                min="1" max="10" value="5"
+                                title="1 = No pain / Excellent health. 10 = Severe / Unbearable."
+                                oninput="updateSlider(this.value); saveField('painlevel')"
+                                onchange="saveField('painlevel')">
+                            <span id="slider-display" class="slider-badge">5 – Moderate</span>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="notes">Additional Notes</label></td>
+                    <td class="inp-col" colspan="2">
+                        <textarea id="notes" name="notes" rows="3" cols="38"
+                            title="Optional. Describe symptoms or concerns. Avoid double-quote characters."
+                            placeholder="Describe any symptoms or additional medical history..."
+                            oninput="saveField('notes')"
+                            onblur="saveField('notes')"></textarea>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+            <!-- BLOCK 5: Account Setup -->
+            <table class="block-table">
+                <thead><tr><th colspan="3">
+                    <span class="block-num">05</span> Account Setup
+                </th></tr></thead>
+                <tbody>
+
+                <tr>
+                    <td class="lbl-col"><label for="uid">User ID <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="text" id="uid" name="uid"
+                            maxlength="20"
+                            title="5–20 characters. Must start with a letter. Letters, numbers, dash, underscore only. No spaces."
+                            placeholder="lois_a"
+                            oninput="validateUID(); saveField('uid')"
+                            onblur="forceUIDLower(); validateUID(); saveField('uid')">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="uid-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="pword">Password <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="password" id="pword" name="pword"
+                            maxlength="30"
+                            title="8–30 characters. At least 1 uppercase, 1 lowercase, 1 digit. Cannot equal User ID."
+                            oninput="validatePword()"
+                            onblur="validatePword()">
+                        <!-- Password is NOT saved to localStorage -->
+                        <div class="hint-box" id="pword-hints">
+                            <span id="hint-len"></span>
+                            <span id="hint-upper"></span>
+                            <span id="hint-lower"></span>
+                            <span id="hint-digit"></span>
+                            <span id="hint-uid"></span>
+                        </div>
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="pword-err"></span></td>
+                </tr>
+
+                <tr>
+                    <td class="lbl-col"><label for="pword2">Confirm Password <span class="req">*</span></label></td>
+                    <td class="inp-col">
+                        <input type="password" id="pword2" name="pword2"
+                            maxlength="30"
+                            title="Re-enter your password exactly as typed above."
+                            oninput="confirmPword()"
+                            onblur="confirmPword()">
+                    </td>
+                    <td class="err-col"><span class="errmsg" id="pword2-err"></span></td>
+                </tr>
+
+                <!-- REMEMBER ME checkbox -->
+                <tr>
+                    <td class="lbl-col"><label for="rememberMe">Remember Me</label></td>
+                    <td class="inp-col" colspan="2">
+                        <label class="chk-lbl">
+                            <input type="checkbox" id="rememberMe" name="rememberMe" checked
+                                title="Check to save your name and form data for your next visit. Uncheck to clear all saved data.">
+                            Save my information for next time (expires in 48 hours)
+                        </label>
+                    </td>
+                </tr>
+
+                <!-- BUTTONS -->
+                <tr>
+                    <td colspan="3" class="btn-row">
+                        <button type="button" id="reviewBtn"   onclick="reviewInput()">&#128269; Review</button>
+                        <button type="button" id="validateBtn" onclick="validateAll()">&#10003; Validate</button>
+                        <button type="submit" id="submitBtn"   style="display:none;" onclick="handleSubmit()">&#10148; Submit</button>
+                        <button type="reset"  id="resetBtn"    onclick="clearAll()">&#8635; Start Over</button>
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </form>
+    </div><!-- end form-col -->
+
+    <!-- ===== REVIEW COLUMN ===== -->
+    <div class="review-col" id="reviewPanel" style="display:none;">
+        <h3 id="review-title">&#128203; Review Information</h3>
+        <table class="review-tbl" id="reviewTable"></table>
+        <p class="review-note" id="review-note"></p>
+    </div>
+
+</div><!-- end page-wrapper -->
+
+<!-- bottom padding so content clears fixed footer -->
+<div style="height:56px;"></div>
+
+<!-- =====================================================
+     FIXED FOOTER (stays at bottom on scroll)
+     ===================================================== -->
+<footer id="site-footer">
+    <div class="footer-inner">
+        <span>&#169; 2026 Houston Clinic &mdash; All Rights Reserved</span>
+        <span class="footer-mid">MIS 3371 &bull; Lois Abrokwaa</span>
+        <span id="footer-storage-status" class="footer-status"></span>
+    </div>
+</footer>
+
+<script src="hw4.js"></script>
+</body>
+</html>
