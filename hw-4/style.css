@@ -10,22 +10,22 @@
 
 /* ---- CSS Custom Properties ---- */
 :root {
-    --navy:       #122333;
-    --navy-lt:    #1e3a52;
-    --teal:       #0b7b82;
-    --teal-lt:    #10a3ab;
-    --accent:     #e9a030;
-    --accent-dk:  #c8841a;
-    --sky:        #e8f4f7;
+    --navy:       #7b2d52;
+    --navy-lt:    #9c3d6a;
+    --teal:       #c2688a;
+    --teal-lt:    #d48faa;
+    --accent:     #f7c5d5;
+    --accent-dk:  #e89ab5;
+    --sky:        #fdeef4;
     --white:      #ffffff;
-    --offwhite:   #f4f7fa;
-    --border:     #c6d5e2;
-    --text:       #192837;
-    --muted:      #5e7a8e;
+    --offwhite:   #fce8f0;
+    --border:     #e8bece;
+    --text:       #3d1a2e;
+    --muted:      #a06a80;
     --red:        #c0392b;
     --green:      #1a7a40;
     --radius:     8px;
-    --shadow:     0 3px 18px rgba(10,28,55,0.11);
+    --shadow:     0 3px 18px rgba(123,45,82,0.10);
     --header-h:   72px;
     --footer-h:   44px;
 }
@@ -53,7 +53,7 @@ body {
     width: 100%;
     z-index: 1000;
     background: var(--navy);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.28);
+    box-shadow: 0 2px 12px rgba(123,45,82,0.30);
 }
 
 .header-inner {
@@ -104,7 +104,7 @@ body {
 .welcome-msg {
     font-size: 0.82rem;
     font-weight: 600;
-    color: #a8d4e0;
+    color: #f5c8d8;
     min-height: 1.1em;
     letter-spacing: 0.02em;
 }
@@ -125,11 +125,11 @@ body {
     box-shadow: none !important;
 }
 
-.date-display { color: #7aaabb; font-size: 0.76rem; }
+.date-display { color: #f0c0d0; font-size: 0.76rem; }
 
 .header-bar {
     height: 4px;
-    background: linear-gradient(90deg, var(--teal) 0%, var(--accent) 55%, var(--teal-lt) 100%);
+    background: linear-gradient(90deg, var(--teal) 0%, #f7c5d5 50%, var(--teal-lt) 100%);
 }
 
 /* spacer so body content starts below fixed header */
@@ -147,7 +147,7 @@ body {
     height: var(--footer-h);
     background: var(--navy-lt);
     border-top: 3px solid var(--teal);
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.20);
+    box-shadow: 0 -2px 10px rgba(123,45,82,0.22);
 }
 
 .footer-inner {
@@ -156,7 +156,7 @@ body {
     justify-content: space-between;
     padding: 0 22px;
     height: 100%;
-    color: #8aaabb;
+    color: #f0c0d0;
     font-size: 0.76rem;
 }
 
@@ -164,7 +164,7 @@ body {
 
 .footer-status {
     font-size: 0.72rem;
-    color: #5e9aaa;
+    color: #e8a0bc;
     font-style: italic;
 }
 
@@ -276,7 +276,7 @@ body {
 }
 
 .block-table tbody tr:nth-child(even) td { background: var(--sky); }
-.block-table tbody tr:hover td { background: #d5ecf3; transition: background 0.14s; }
+.block-table tbody tr:hover td { background: #f9d5e5; transition: background 0.14s; }
 
 .lbl-col  { width: 28%; padding: 7px 12px; vertical-align: middle; }
 .inp-col  { width: 46%; padding: 6px 10px; vertical-align: middle; }
@@ -309,7 +309,7 @@ textarea {
 
 input:focus, select:focus, textarea:focus {
     border-color: var(--teal);
-    box-shadow: 0 0 0 3px rgba(11,123,130,0.15);
+    box-shadow: 0 0 0 3px rgba(194,104,138,0.18);
 }
 
 input.f-error, select.f-error { border-color: var(--red)   !important; background: #fff5f5; }
@@ -374,7 +374,7 @@ input[type="range"]::-webkit-slider-thumb {
     background: var(--teal);
     cursor: pointer;
     border: 2px solid var(--white);
-    box-shadow: 0 1px 4px rgba(0,0,0,0.22);
+    box-shadow: 0 1px 4px rgba(123,45,82,0.22);
 }
 
 .slider-badge {
@@ -433,17 +433,17 @@ button {
     transition: background 0.18s, transform 0.1s, box-shadow 0.18s;
 }
 
-#reviewBtn   { background: #ddeaf5; color: var(--navy); }
-#reviewBtn:hover { background: #c4d9ea; }
+#reviewBtn   { background: #f5d5e5; color: var(--navy); }
+#reviewBtn:hover { background: #eabdd0; }
 
 #validateBtn { background: var(--teal); color: var(--white); }
-#validateBtn:hover { background: var(--teal-lt); box-shadow: 0 3px 10px rgba(11,123,130,0.3); }
+#validateBtn:hover { background: var(--teal-lt); box-shadow: 0 3px 10px rgba(194,104,138,0.35); }
 
-#submitBtn   { background: var(--accent); color: var(--navy); }
-#submitBtn:hover { background: var(--accent-dk); color: var(--white); }
+#submitBtn   { background: var(--navy); color: var(--white); }
+#submitBtn:hover { background: var(--navy-lt); }
 
-#resetBtn    { background: #e5eaef; color: var(--muted); }
-#resetBtn:hover { background: #d0d8e0; color: var(--navy); }
+#resetBtn    { background: #f0dce6; color: var(--muted); }
+#resetBtn:hover { background: #e0c0d2; color: var(--navy); }
 
 /* ============================================================
    REVIEW PANEL
