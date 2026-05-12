@@ -1,0 +1,387 @@
+/* ============================================================
+   hw3.css  —  Houston Clinic | New Patient Registration
+   Author : Lois Abrokwaa
+   Version: 3.0
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
+
+/* ---- CSS Custom Properties ---- */
+:root {
+    --navy:      #7b2d52;
+    --teal:      #c2688a;
+    --teal-lt:   #d48faa;
+    --accent:    #f7c5d5;
+    --sky:       #fdeef4;
+    --white:     #ffffff;
+    --offwhite:  #fce8f0;
+    --border:    #e8bece;
+    --text:      #3d1a2e;
+    --muted:     #a06a80;
+    --red:       #be2d2d;
+    --green:     #1a7a40;
+    --radius:    7px;
+    --shadow:    0 3px 16px rgba(123,45,82,0.10);
+    --tranhover: background 0.18s ease, color 0.18s ease, box-shadow 0.18s ease;
+}
+
+/* ---- Reset ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Source Sans 3', sans-serif;
+    background: var(--offwhite);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.65;
+    min-height: 100vh;
+}
+
+/* ---- Header ---- */
+header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 14px 24px 10px;
+}
+
+#header-table td { vertical-align: middle; }
+
+header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    color: var(--white);
+    letter-spacing: 0.01em;
+    line-height: 1.15;
+}
+
+header .tagline {
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+header .date-display {
+    color: #f0c0d0;
+    font-size: 0.82rem;
+    text-align: right;
+}
+
+#logo {
+    border-radius: 50%;
+    border: 3px solid var(--teal-lt);
+    background: var(--white);
+    padding: 4px;
+    display: block;
+    margin: 0 auto;
+}
+
+.header-bar {
+    height: 4px;
+    background: linear-gradient(90deg, var(--teal) 0%, #f7c5d5 50%, var(--teal-lt) 100%);
+}
+
+/* ---- Page Layout ---- */
+.page-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 22px;
+    padding: 22px 24px;
+    align-items: flex-start;
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.form-col   { flex: 1 1 520px; min-width: 300px; }
+.review-col {
+    flex: 0 1 380px;
+    min-width: 280px;
+    background: var(--white);
+    border: 2px solid var(--teal);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 18px;
+}
+
+.review-col h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--navy);
+    font-size: 1.05rem;
+    border-bottom: 2px solid var(--sky);
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+}
+
+/* ---- Block Tables ---- */
+.block-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 18px;
+    overflow: hidden;
+}
+
+.block-table thead tr th {
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'Playfair Display', serif;
+    font-size: 0.92rem;
+    letter-spacing: 0.03em;
+    padding: 9px 14px;
+    text-align: left;
+}
+
+.block-num {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--navy);
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    border-radius: 3px;
+    padding: 1px 5px;
+    margin-right: 7px;
+    vertical-align: middle;
+}
+
+.block-table tbody tr:nth-child(even) td { background: var(--sky); }
+.block-table tbody tr:hover td { background: #f9d5e5; transition: background 0.15s; }
+
+/* ---- Column widths ---- */
+.lbl-col  { width: 28%; padding: 8px 12px; vertical-align: middle; }
+.inp-col  { width: 46%; padding: 7px 10px; vertical-align: middle; }
+.err-col  { width: 26%; padding: 7px 6px;  vertical-align: middle; }
+.lbl-pad  { padding: 8px 14px 2px; }
+
+/* ---- Labels ---- */
+label { font-weight: 500; color: var(--navy); font-size: 0.87rem; }
+.req  { color: var(--red); font-weight: 700; }
+
+/* ---- Inputs, Selects, Textarea ---- */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 6px 9px;
+    border: 1.5px solid var(--border);
+    border-radius: 5px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.87rem;
+    color: var(--text);
+    background: var(--white);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--teal);
+    box-shadow: 0 0 0 3px rgba(194,104,138,0.18);
+}
+
+/* Field state classes set by JS */
+input.f-error, select.f-error {
+    border-color: var(--red) !important;
+    background: #fff6f6;
+}
+input.f-ok, select.f-ok {
+    border-color: var(--green) !important;
+    background: #f4fff8;
+}
+
+textarea { resize: vertical; }
+
+/* ---- Radios & Checkboxes ---- */
+.checkbox-cell, .radio-cell {
+    padding: 8px 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+}
+
+.chk-lbl, .radio-lbl {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 0.87rem;
+    color: var(--text);
+    white-space: nowrap;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    accent-color: var(--teal);
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    /* override the full-width rule */
+    width: 14px !important;
+    padding: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* ---- Slider ---- */
+.slider-wrap { display: flex; align-items: center; gap: 10px; }
+
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 160px !important;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border);
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--teal);
+    cursor: pointer;
+    border: 2px solid var(--white);
+    box-shadow: 0 1px 4px rgba(123,45,82,0.22);
+}
+
+.slider-badge {
+    display: inline-block;
+    background: var(--teal);
+    color: var(--white);
+    padding: 3px 11px;
+    border-radius: 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    min-width: 115px;
+    text-align: center;
+    transition: background 0.25s;
+}
+
+/* ---- Error / Hint Messages ---- */
+.errmsg {
+    color: var(--red);
+    font-size: 0.76rem;
+    font-weight: 600;
+    display: block;
+    min-height: 1.1em;   /* reserve space so layout never jumps */
+    min-width: 130px;
+    line-height: 1.3;
+}
+
+.hint-box {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.hint-box span {
+    font-size: 0.74rem;
+    display: block;
+    min-height: 1.1em;
+}
+
+.h-ok   { color: var(--green); }
+.h-fail { color: var(--red);   }
+.h-idle { color: var(--muted); }
+
+/* ---- Buttons ---- */
+.btn-row {
+    text-align: center;
+    padding: 14px 10px !important;
+    background: var(--offwhite) !important;
+}
+
+button {
+    padding: 9px 20px;
+    border: none;
+    border-radius: 5px;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 4px 5px;
+    transition: var(--tranhover);
+    letter-spacing: 0.02em;
+}
+
+#reviewBtn   { background: #f5d5e5; color: var(--navy); }
+#reviewBtn:hover { background: #eabdd0; }
+
+#validateBtn { background: var(--teal);  color: var(--white); }
+#validateBtn:hover { background: var(--teal-lt); box-shadow: 0 3px 10px rgba(194,104,138,0.35); }
+
+#submitBtn   { background: var(--navy); color: var(--white); }
+#submitBtn:hover { background: var(--teal-lt); }
+
+#resetBtn    { background: #f0dce6; color: var(--muted); }
+#resetBtn:hover { background: #e0c0d2; color: var(--navy); }
+
+/* ---- Review Panel ---- */
+.review-tbl {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+}
+
+.review-tbl td {
+    padding: 5px 7px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--sky);
+}
+
+.review-tbl td:first-child {
+    font-weight: 600;
+    color: var(--navy);
+    width: 40%;
+}
+
+.review-tbl td:nth-child(2) { width: 35%; }
+
+.s-pass  { color: var(--green); font-weight: 700; font-size: 0.73rem; }
+.s-error { color: var(--red);   font-weight: 700; font-size: 0.73rem; }
+
+.review-note {
+    margin-top: 10px;
+    font-size: 0.76rem;
+    color: var(--muted);
+    line-height: 1.4;
+}
+
+/* ---- Error summary banner ---- */
+#errorBanner {
+    display: none;
+    background: #fdecea;
+    border: 1.5px solid var(--red);
+    color: var(--red);
+    border-radius: var(--radius);
+    padding: 9px 14px;
+    margin-bottom: 10px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 680px) {
+    .page-wrapper { padding: 12px; }
+    .lbl-col, .inp-col, .err-col { display: block; width: 100%; }
+    .review-col { position: static; }
+    .checkbox-cell, .radio-cell { flex-direction: column; }
+}
