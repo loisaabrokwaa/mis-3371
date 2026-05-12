@@ -4,16 +4,50 @@
     Date created: 2/24/2026
     Date last edited: 2/24/2026
     Version: 3.0
-    Description: Homework 3 - Patient Registration
-<!-- ======== HEADER ======== -->
-
+    Description: Homework 3 - Patient Registration with Full JS Validation
+-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>New Patient Registration | Houston Clinic</title>
-    <link rel="stylesheet" href="hw2.css">
+    <link rel="stylesheet" href="hw3.css">
     <style>
+        /* ── Pink theme override ── */
+        body { background: #fce8f0 !important; color: #3d1a2e !important; }
+        header, #site-header { background: #7b2d52 !important; }
+        #site-footer { background: #9c3d6a !important; border-top-color: #c2688a !important; }
+        .header-bar { background: linear-gradient(90deg,#c2688a,#f7c5d5,#d48faa) !important; }
+        .form-table th, .block-table thead tr th { background: #7b2d52 !important; }
+        hr { border-top-color: #c2688a !important; }
+        input[type="text"], input[type="email"], input[type="password"],
+        input[type="date"], select, textarea {
+            border-color: #e8bece !important;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #c2688a !important;
+            box-shadow: 0 0 0 3px rgba(194,104,138,0.18) !important;
+        }
+        .form-table tr:nth-child(even) td,
+        .block-table tbody tr:nth-child(even) td { background: #fdeef4 !important; }
+        .form-table tr:hover td,
+        .block-table tbody tr:hover td { background: #f9d5e5 !important; }
+        .review-column, .review-col { border-color: #c2688a !important; }
+        input[type="range"]::-webkit-slider-thumb,
+        .slider-badge, .slider-val { background: #c2688a !important; }
+        input[type="radio"], input[type="checkbox"] { accent-color: #c2688a !important; }
+        label { color: #7b2d52 !important; }
+        input[type="button"], #validateBtn { background: #c2688a !important; color: #fff !important; }
+        input[type="button"]:hover, #validateBtn:hover { background: #d48faa !important; }
+        input[type="submit"], #submitBtn { background: #7b2d52 !important; color: #fff !important; }
+        input[type="reset"], #resetBtn { background: #f0dce6 !important; color: #a06a80 !important; }
+        #reviewBtn { background: #f5d5e5 !important; color: #7b2d52 !important; }
+        .block-num { background: #f7c5d5 !important; color: #7b2d52 !important; }
+        #logo { border-color: #d48faa !important; }
+    </style>
+</head>
+<body>
 
+<!-- ======== HEADER ======== -->
 <header>
     <table width="100%" id="header-table">
         <tr>
@@ -25,18 +59,21 @@
                 <p class="tagline">New Patient Registration</p>
             </td>
             <td width="20%" align="right" valign="bottom">
-                <p class="date-display">Date: 04/01/2026 <span id="today"></span></p>
+                <p class="date-display">Date: <span id="today"></span></p>
             </td>
         </tr>
     </table>
 </header>
 <div class="header-bar"></div>
 
+<!-- ======== MAIN LAYOUT ======== -->
 <div class="page-wrapper">
 
+    <!-- ===== FORM COLUMN ===== -->
     <div class="form-col">
         <form id="regForm" action="thankyou.html" method="get" novalidate>
 
+            <!-- BLOCK 1: Personal Info -->
             <table class="block-table">
                 <thead><tr><th colspan="3">
                     <span class="block-num">01</span> Personal Information
@@ -121,6 +158,7 @@
                 </tbody>
             </table>
 
+            <!-- BLOCK 2: Contact Info -->
             <table class="block-table">
                 <thead><tr><th colspan="3">
                     <span class="block-num">02</span> Contact Information
@@ -156,6 +194,7 @@
                 </tbody>
             </table>
 
+            <!-- BLOCK 3: Address -->
             <table class="block-table">
                 <thead><tr><th colspan="3">
                     <span class="block-num">03</span> Address
@@ -283,6 +322,7 @@
                 </tbody>
             </table>
 
+            <!-- BLOCK 4: Medical History -->
             <table class="block-table">
                 <thead><tr><th colspan="3">
                     <span class="block-num">04</span> Medical History &amp; Preferences
@@ -352,6 +392,7 @@
                 </tbody>
             </table>
 
+            <!-- BLOCK 5: Account Setup -->
             <table class="block-table">
                 <thead><tr><th colspan="3">
                     <span class="block-num">05</span> Account Setup
@@ -401,6 +442,8 @@
                     </td>
                     <td class="err-col"><span class="errmsg" id="pword2-err"></span></td>
                 </tr>
+
+                <!-- BUTTONS ROW -->
                 <tr>
                     <td colspan="3" class="btn-row">
                         <button type="button" id="reviewBtn" onclick="reviewInput()">&#128269; Review</button>
@@ -415,16 +458,16 @@
             </table>
 
         </form>
-    </div>
+    </div><!-- end form-col -->
 
-
+    <!-- ===== REVIEW / VALIDATION COLUMN ===== -->
     <div class="review-col" id="reviewPanel" style="display:none;">
         <h3 id="review-title">&#128203; Review Information</h3>
         <table class="review-tbl" id="reviewTable"></table>
         <p class="review-note" id="review-note"></p>
     </div>
 
-</div>
+</div><!-- end page-wrapper -->
 
 <script src="hw3.js"></script>
 </body>
