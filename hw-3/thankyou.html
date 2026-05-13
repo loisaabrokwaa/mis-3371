@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!--
+    Program name: Lois Abrokwaa
+    Description:  Thank You / Confirmation Page
+                  Used by hw2.html, hw3.html, hw4.html
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thank You | Houston Clinic</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Karla:wght@300;400;500;600;700&display=swap');
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Karla', sans-serif;
+            background: #fce8f0;
+            color: #3d1a2e;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #7b2d52;
+            padding: 14px 28px;
+            box-shadow: 0 2px 10px rgba(123,45,82,0.25);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        #logo {
+            width: 54px;
+            border-radius: 50%;
+            border: 3px solid #d48faa;
+            background: #fff;
+            padding: 3px;
+        }
+
+        header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #fff;
+            line-height: 1.15;
+        }
+
+        header .tagline {
+            color: #f7c5d5;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .header-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #c2688a, #f7c5d5, #d48faa);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(123,45,82,0.13);
+            padding: 52px 48px;
+            text-align: center;
+            max-width: 560px;
+            width: 100%;
+        }
+
+        .checkmark {
+            width: 80px;
+            height: 80px;
+            background: #fdeef4;
+            border: 3px solid #c2688a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 2.2rem;
+            color: #7b2d52;
+        }
+
+        .card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.9rem;
+            color: #7b2d52;
+            margin-bottom: 14px;
+            line-height: 1.2;
+        }
+
+        .card p {
+            color: #a06a80;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+
+        .card .highlight { color: #7b2d52; font-weight: 600; }
+
+        .divider {
+            border: none;
+            border-top: 2px solid #fdeef4;
+            margin: 28px 0;
+        }
+
+        .info-box {
+            background: #fdeef4;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+
+        .info-box p {
+            font-size: 0.88rem;
+            color: #7b2d52;
+            margin-bottom: 6px;
+        }
+
+        .info-box p:last-child { margin-bottom: 0; }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 11px 28px;
+            border-radius: 6px;
+            font-family: 'Karla', sans-serif;
+            font-size: 0.92rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            border: none;
+        }
+
+        .btn-primary { background: #7b2d52; color: #fff; }
+        .btn-primary:hover { background: #9c3d6a; transform: translateY(-1px); }
+
+        .btn-secondary { background: #f0dce6; color: #7b2d52; }
+        .btn-secondary:hover { background: #e0c0d2; transform: translateY(-1px); }
+
+        footer {
+            background: #9c3d6a;
+            border-top: 3px solid #c2688a;
+            padding: 12px 24px;
+            text-align: center;
+            color: #f0c0d0;
+            font-size: 0.76rem;
+        }
+
+        footer span { color: #f7c5d5; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-inner">
+            <img src="cliniclogo.png" alt="Houston Clinic Logo" id="logo">
+            <div>
+                <h1>Houston Clinic</h1>
+                <p class="tagline">Patient Registration Portal</p>
+            </div>
+        </div>
+    </header>
+    <div class="header-bar"></div>
+
+    <main>
+        <div class="card">
+
+            <div class="checkmark">&#10003;</div>
+
+            <h2>Thank You for Your Submission!</h2>
+
+            <p>We have successfully received your registration information.<br>
+               A member of the <span class="highlight">Houston Clinic</span> team
+               will be contacting you shortly.</p>
+
+            <hr class="divider">
+
+            <div class="info-box">
+                <p>&#128337; &nbsp;<strong>What happens next?</strong></p>
+                <p>&#8226; &nbsp;You will receive a confirmation email within 24 hours</p>
+                <p>&#8226; &nbsp;A clinic representative will call to confirm your appointment</p>
+                <p>&#8226; &nbsp;Please bring a valid photo ID to your first visit</p>
+            </div>
+
+            <div class="btn-group">
+                <a href="hw4.html" class="btn btn-primary">&#8592; Back to Registration</a>
+                <a href="hw2.html" class="btn btn-secondary">&#8962; Home</a>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        &#169; 2026 Houston Clinic &mdash; All Rights Reserved &nbsp;|&nbsp;
+        <span>MIS 3371 &bull; Lois Abrokwaa</span>
+    </footer>
+
+</body>
+</html>
